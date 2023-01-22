@@ -1,0 +1,19 @@
+import { Technology as BaseTechnology } from 'basic-kodyfire';
+export declare class Technology extends BaseTechnology {
+    constructor(params: any, _assets?: {
+        name: string;
+        version: string;
+        rootDir: string;
+        concepts: {
+            name: any;
+            outputDir: string;
+            template: {
+                path: string;
+                options: never[];
+                placeholders: never[];
+            };
+        }[];
+    });
+    initConcepts(): void;
+    updateTemplatesPath(params: any): void;
+}

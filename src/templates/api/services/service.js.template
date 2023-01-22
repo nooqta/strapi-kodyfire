@@ -1,0 +1,7 @@
+'use strict';
+
+/**
+ * {{ name }} service
+ */
+
+module.exports = () => ({});

@@ -71,6 +71,9 @@ export class ContentType extends BaseConcept {
       this.outputDir = _data.outputDir;
     }
     const {templateFolder = ''} = _data;
+    _data.singularName = strings.dasherize(_data.name);
+    _data.pluralName = pluralize(_data.singularName);
+    _data.collectionName = strings.underscore(_data.singularName);
     if(_data.import) {
       _data = this.prepareData(_data);
     }

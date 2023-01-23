@@ -86,6 +86,9 @@ class ContentType extends basic_kodyfire_1.Concept {
                 this.outputDir = _data.outputDir;
             }
             const { templateFolder = '' } = _data;
+            _data.singularName = core_1.strings.dasherize(_data.name);
+            _data.pluralName = pluralize(_data.singularName);
+            _data.collectionName = core_1.strings.underscore(_data.singularName);
             if (_data.import) {
                 _data = this.prepareData(_data);
             }

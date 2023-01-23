@@ -29,10 +29,16 @@ export declare const conceptArray: {
         };
     };
 };
-declare const concepts: {
+declare const concepts: ({
     name: string;
     template: string;
     description: string;
-}[];
+    fields?: undefined;
+} | {
+    name: string;
+    template: string;
+    description: string;
+    fields: string[];
+})[];
 declare let schema: any;
 export { concepts, schema };

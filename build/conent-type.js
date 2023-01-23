@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Concept = void 0;
+exports.ContentType = void 0;
 const path_1 = require("path");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
@@ -36,10 +36,10 @@ const core_1 = require("@angular-devkit/core");
 const parsers = __importStar(require("./parsers"));
 const { promises: fs } = require('fs');
 const pluralize = require('pluralize');
-class Concept extends basic_kodyfire_1.Concept {
+class ContentType extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
-        this.extension = '.js';
+        this.extension = '.json';
         this.engine = new engine_1.Engine();
         // Register functions you want to use in your templates with the engine builder registerHelper method.
         this.engine.builder.registerHelper('uppercase', (value) => {
@@ -114,8 +114,8 @@ class Concept extends basic_kodyfire_1.Concept {
                 _data.class = core_1.strings.classify(_data.name);
                 const compiled = this.engine.compile(template, _data);
                 yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename({
-                    path: pluralize(core_1.strings.dasherize(this.name)),
-                    name: _data.name.toLowerCase()
+                    path: (0, path_1.join)(pluralize(core_1.strings.dasherize(this.name)), _data.name.toLowerCase()),
+                    name: 'schema'
                 }), compiled);
             }
         });
@@ -137,7 +137,7 @@ class Concept extends basic_kodyfire_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.path, `${data.name.toLowerCase().replace('.template', '')}${this.extension}`);
+        return (0, path_1.join)(data.path, `${data.name.toLowerCase()}${this.extension}`);
     }
     getTemplatesPath() {
         return this.technology.params.templatesPath
@@ -164,5 +164,5 @@ class Concept extends basic_kodyfire_1.Concept {
         return `${name.toLowerCase()}${templateName}${this.extension}.template`;
     }
 }
-exports.Concept = Concept;
-//# sourceMappingURL=concept.js.map
+exports.ContentType = ContentType;
+//# sourceMappingURL=conent-type.js.map

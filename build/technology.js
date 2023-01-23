@@ -26,9 +26,10 @@ exports.Technology = void 0;
 const basic_kodyfire_1 = require("basic-kodyfire");
 const classes = __importStar(require("."));
 const assets_1 = __importDefault(require("./assets"));
-const kodyfire_core_1 = require("kodyfire-core");
+// import { capitalize } from 'kodyfire-core';
 const path_1 = require("path");
 const concept_1 = require("./concept");
+const strings_1 = require("@angular-devkit/core/src/utils/strings");
 const fs = require('fs');
 class Technology extends basic_kodyfire_1.Technology {
     constructor(params, _assets = assets_1.default) {
@@ -45,8 +46,8 @@ class Technology extends basic_kodyfire_1.Technology {
     initConcepts() {
         // add dynamic property for technology
         for (const concept of this.assets.concepts) {
-            if (typeof classes[(0, kodyfire_core_1.capitalize)(concept.name)] !== 'undefined') {
-                this.concepts.set(concept.name, new classes[(0, kodyfire_core_1.capitalize)(concept.name)](concept, this));
+            if (typeof classes[(0, strings_1.classify)(concept.name)] !== 'undefined') {
+                this.concepts.set(concept.name, new classes[(0, strings_1.classify)(concept.name)](concept, this));
             }
             else {
                 this.concepts.set(concept.name, new concept_1.Concept(concept, this));

@@ -1,6 +1,6 @@
 import { IConcept, ITechnology } from 'kodyfire-core';
 import { Concept as BaseConcept } from 'basic-kodyfire';
-export declare class Concept extends BaseConcept {
+export declare class ContentType extends BaseConcept {
     extension: string;
     constructor(concept: Partial<IConcept>, technology: ITechnology);
     initEngine(): void;

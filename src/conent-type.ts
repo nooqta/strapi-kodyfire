@@ -8,8 +8,8 @@ import * as parsers from './parsers';
 const { promises: fs } = require('fs');
 const pluralize = require('pluralize');
 
-export class Concept extends BaseConcept {
-  extension = '.js';
+export class ContentType extends BaseConcept {
+  extension = '.json';
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
     super(concept, technology);
     this.engine = new Engine();
@@ -116,8 +116,8 @@ export class Concept extends BaseConcept {
       this.technology.rootDir,
       this.outputDir,
       this.getFilename({
-        path: pluralize(strings.dasherize(this.name)),
-        name: _data.name.toLowerCase()
+        path: join(pluralize(strings.dasherize(this.name)), _data.name.toLowerCase()),
+        name: 'schema'
       }),
       compiled
     );
@@ -140,7 +140,7 @@ export class Concept extends BaseConcept {
     if (data.filename) return data.filename;
     return join(
       data.path,
-      `${data.name.toLowerCase().replace('.template','')}${this.extension}`
+      `${data.name.toLowerCase()}${this.extension}`
     );
   }
   getTemplatesPath(): string {

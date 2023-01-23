@@ -1,6 +1,6 @@
 {
   "name": "strapi-kodyfire",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Generate strapi related artifacts with strapi-kodyfire",
   "main": "build/index.js",
   "scripts": {

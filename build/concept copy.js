@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Api = void 0;
+exports.Concept = void 0;
 const path_1 = require("path");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
@@ -36,7 +36,7 @@ const core_1 = require("@angular-devkit/core");
 const parsers = __importStar(require("./parsers"));
 const { promises: fs } = require('fs');
 const pluralize = require('pluralize');
-class Api extends basic_kodyfire_1.Concept {
+class Concept extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
         this.extension = '.js';
@@ -78,6 +78,9 @@ class Api extends basic_kodyfire_1.Concept {
     }
     generate(_data) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (_data.extension) {
+                this.extension = `.${_data.extension.replace('.', '')}`;
+            }
             this.initEngine();
             if (_data.outputDir) {
                 this.outputDir = _data.outputDir;
@@ -110,7 +113,10 @@ class Api extends basic_kodyfire_1.Concept {
                 const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
                 _data.class = core_1.strings.classify(_data.name);
                 const compiled = this.engine.compile(template, _data);
-                yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
+                yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename({
+                    path: pluralize(core_1.strings.dasherize(this.name)),
+                    name: _data.name.toLowerCase()
+                }), compiled);
             }
         });
     }
@@ -131,7 +137,7 @@ class Api extends basic_kodyfire_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.path, `${data.name.toLowerCase()}${this.extension}`);
+        return (0, path_1.join)(data.path, `${data.name.toLowerCase().replace('.template', '')}${this.extension}`);
     }
     getTemplatesPath() {
         return this.technology.params.templatesPath
@@ -158,5 +164,5 @@ class Api extends basic_kodyfire_1.Concept {
         return `${name.toLowerCase()}${templateName}${this.extension}.template`;
     }
 }
-exports.Api = Api;
+exports.Concept = Concept;
 //# sourceMappingURL=concept%20copy.js.map
